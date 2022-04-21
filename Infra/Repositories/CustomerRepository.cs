@@ -16,11 +16,6 @@ namespace Customers.Infra.Repositories
             _dataContext = dataContext;
         }
 
-        public async Task<IEnumerable<Customer>> GetAllAsync()
-        {
-            return await _dataContext.Customers.ToListAsync();
-        }
-
         public async Task<Customer> GetAsync(Guid customerId)
         {
             return await _dataContext.Customers.FindAsync(customerId);
@@ -28,6 +23,8 @@ namespace Customers.Infra.Repositories
         
         public async Task<Customer> CreateAsync(Customer customer)
         {
+            customer.Email = customer.Email.ToLower();
+
             customer.SetCreatedAt();
             
             _dataContext.Customers.Add(customer);
@@ -66,7 +63,18 @@ namespace Customers.Infra.Repositories
 
         public async Task<Customer> GetByEmail(string email)
         {
+            email = email.ToLower();
+
             var customer = await _dataContext.Customers.FirstOrDefaultAsync(c => c.Email == email);
+
+            return customer;
+        }
+
+        public async Task<Customer> GetByEmailAndPassword(string email, string password)
+        {
+            email = email.ToLower();
+
+            var customer = await _dataContext.Customers.FirstOrDefaultAsync(c => c.Email == email && c.Password == password);
 
             return customer;
         }

@@ -12,6 +12,9 @@ namespace Customers.Business.Models
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
+        [Required]
+        [JsonIgnore]
+        public string Password { get; set; }
         [JsonIgnore]
         public WishList WishList { get; set; }
 

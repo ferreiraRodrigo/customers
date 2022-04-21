@@ -11,7 +11,7 @@ namespace Customers.Infra.Adapters.Product.Interfaces
         private readonly HttpClient _httpClient;
         private readonly string _resource;
 
-        public ProductAdapter(HttpClient httpClientFactory, IOptions<ProductAdataperSettings> options)
+        public ProductAdapter(HttpClient httpClientFactory, IOptions<ProductAdataperConfigurations> options)
         {
             _httpClient = httpClientFactory;
             _httpClient.BaseAddress = new Uri(options.Value.BaseAddress);
