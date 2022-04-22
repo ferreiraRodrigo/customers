@@ -1,6 +1,7 @@
 ﻿using Customers.Business.Services;
 using Customers.Business.Services.Interfaces;
 using Customers.Business.Services.OperationResults;
+using Customers.Business.Services.Structs;
 using Customers.Presentation.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,10 +36,15 @@ namespace Customers.Presentation.Controllers
 
             return Created($"/customers/{customer.Result.Id}", customer.Result);
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> GetCustomer()
         {
+            if (!User.FindFirst(AuthenticationClaims.Scopes).Value.Contains(AuthenticationScopes.ReadCustomer))
+            {
+                return Forbid();
+            }
+
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);
             var customer = await _customerService.GetCustomerAsync(customerId);
 

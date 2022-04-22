@@ -1,7 +1,10 @@
 ﻿using Customers.Business.Models;
 using Customers.Business.Repositories;
 using Customers.Business.Services.OperationResults;
+using Customers.Business.Services.Structs;
+using Customers.Configurations;
 using Customers.Presentation.Dtos;
+using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
@@ -12,11 +15,15 @@ namespace Customers.Business.Services.Interfaces
         private readonly ICustomerRepository _customerRepository;
         private readonly IWishListRepository _wishlistRepository;
 
+        private readonly string _defaultScopes;
+
         public CustomerService(ICustomerRepository customerRepository, 
             IWishListRepository wishlistRepository)
         {
             _customerRepository = customerRepository;
             _wishlistRepository = wishlistRepository;
+
+            _defaultScopes = $"{AuthenticationScopes.ReadCustomer} {AuthenticationScopes.WriteCustomer} {AuthenticationScopes.ReadWishList} {AuthenticationScopes.WriteWishList}";
         }
         public async Task<OperationResult<Customer>> CreateCustomerAsync(CustomerCreationDTO customerDTO)
         {
@@ -35,7 +42,8 @@ namespace Customers.Business.Services.Interfaces
             {
                 Name = customerDTO.Name,
                 Email = customerDTO.Email,
-                Password = customerDTO.Password
+                Password = customerDTO.Password,
+                Scopes = _defaultScopes
             };
 
             var createdCustomer = await _customerRepository.CreateAsync(customer);

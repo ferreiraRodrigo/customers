@@ -52,16 +52,45 @@ namespace Customers.Business.Services
                 );
             }
 
-            return new OperationResult<AuthenticationTokenDTO>(GenerateToken(customer));
+            var validateToken = ValidateScopes(loginAuthenticationDTO.Scopes, customer.Scopes);
+
+            if (!validateToken.Success)
+            {
+                return validateToken;
+            }
+
+            var token = GenerateToken(customer, loginAuthenticationDTO.Scopes);
+
+            return new OperationResult<AuthenticationTokenDTO>(token);
         }
 
-        private AuthenticationTokenDTO GenerateToken(Customer customer)
+        private OperationResult<AuthenticationTokenDTO> ValidateScopes(string scopes, string customerScopes)
+        {
+            var listScopes = scopes.Split(' ');
+
+            foreach (var scope in listScopes)
+            {
+                if (!customerScopes.Contains(scope))
+                {
+                    return new OperationResult<AuthenticationTokenDTO>(
+                        null,
+                        AuthenticationServiceOperationResults.AUTHENTICATION_INVALID_SCOPE,
+                        $"Customer does not have access to {scope} scope."
+                    );
+                }
+            }
+
+            return new OperationResult<AuthenticationTokenDTO>(null);
+        }
+        
+        private AuthenticationTokenDTO GenerateToken(Customer customer, string scopes)
         {
             var claims = new[]
             {
                 new Claim(AuthenticationClaims.CustomerId, customer.Id.ToString()),
                 new Claim(AuthenticationClaims.Name, customer.Name),
-                new Claim(AuthenticationClaims.Email, customer.Email)
+                new Claim(AuthenticationClaims.Email, customer.Email),
+                new Claim(AuthenticationClaims.Scopes, scopes)
             };
 
             var tokenSettings = new JwtSecurityToken(

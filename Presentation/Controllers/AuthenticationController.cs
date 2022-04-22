@@ -28,6 +28,11 @@ namespace Customers.Presentation.Controllers
                 return Problem(loginResult.ErrorMessage, statusCode: (int)HttpStatusCode.Unauthorized);
             }
 
+            if (loginResult.Error == AuthenticationServiceOperationResults.AUTHENTICATION_INVALID_SCOPE)
+            {
+                return Problem(loginResult.ErrorMessage, statusCode: (int)HttpStatusCode.Forbidden);
+            }
+
             return Ok(loginResult.Result);
         }
     }

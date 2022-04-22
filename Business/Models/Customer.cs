@@ -1,5 +1,6 @@
 ﻿using Customers.Business.Models.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -16,6 +17,8 @@ namespace Customers.Business.Models
         [JsonIgnore]
         public string Password { get; set; }
         [JsonIgnore]
+        public string Scopes { get; set; }
+        [JsonIgnore]
         public WishList WishList { get; set; }
 
         public override void SetDeletedAt()
@@ -24,6 +27,11 @@ namespace Customers.Business.Models
             DeletedAt = DateTimeOffset.Now;
 
             WishList.SetDeletedAt();
+        }
+
+        public string[] GetScopes()
+        {
+            return Scopes.Split(' ');
         }
     }
 }
