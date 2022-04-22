@@ -3,6 +3,7 @@ using Customers.Business.Services.Interfaces;
 using Customers.Business.Services.Structs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -15,10 +16,13 @@ namespace Customers.Presentation.Controllers
     public class WishListController : ControllerBase
     {
         private readonly IWishListService _wishListService;
+        private readonly ILogger<WishListController> _logger;
 
-        public WishListController(IWishListService wishListService)
+        public WishListController(IWishListService wishListService,
+            ILogger<WishListController> logger)
         {
             _wishListService = wishListService;
+            _logger = logger;
         }
         
         [HttpGet]
@@ -29,6 +33,7 @@ namespace Customers.Presentation.Controllers
 
             if (wishlist.Error == WishListServiceOperationResults.CUSTOMER_NOT_FOUND)
             {
+                _logger.LogInformation($"Customer with {customerId} id not found. Message: {wishlist.ErrorMessage}");
                 return Problem(wishlist.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
             }
 
@@ -46,9 +51,15 @@ namespace Customers.Presentation.Controllers
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);
             var product = await _wishListService.GetProductFromCustomerWishListAsync(customerId, productId);
 
-            if (product.Error == WishListServiceOperationResults.CUSTOMER_NOT_FOUND ||
-                product.Error == WishListServiceOperationResults.PRODUCT_NOT_FOUND)
+            if (product.Error == WishListServiceOperationResults.CUSTOMER_NOT_FOUND)
             {
+                _logger.LogInformation($"Customer with {customerId} id not found. Message: {product.ErrorMessage}");
+                return Problem(product.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
+            }
+
+            if (product.Error == WishListServiceOperationResults.PRODUCT_NOT_FOUND)
+            {
+                _logger.LogInformation($"Product with {productId} id not found. Message: {product.ErrorMessage}");
                 return Problem(product.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
             }
 
@@ -66,14 +77,21 @@ namespace Customers.Presentation.Controllers
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);
             var product = await _wishListService.AddProductToCustomerWishListAsync(customerId, productId);
 
-            if (product.Error == WishListServiceOperationResults.CUSTOMER_NOT_FOUND ||
-                product.Error == WishListServiceOperationResults.PRODUCT_NOT_FOUND)
+            if (product.Error == WishListServiceOperationResults.CUSTOMER_NOT_FOUND)
             {
+                _logger.LogInformation($"Customer with {customerId} id not found. Message: {product.ErrorMessage}");
+                return Problem(product.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
+            }
+
+            if (product.Error == WishListServiceOperationResults.PRODUCT_NOT_FOUND)
+            {
+                _logger.LogInformation($"Product with {productId} id not found. Message: {product.ErrorMessage}");
                 return Problem(product.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
             }
 
             if (product.Error == WishListServiceOperationResults.PRODUCT_ALREADY_EXISTS)
             {
+                _logger.LogInformation($"Product with {productId} id already exists. Message: {product.ErrorMessage}");
                 return Problem(product.ErrorMessage, statusCode: (int)HttpStatusCode.Conflict);
             }
 
@@ -91,9 +109,15 @@ namespace Customers.Presentation.Controllers
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);            
             var product = await _wishListService.DeleteProductFromCustomerWishListAsync(customerId, productId);
 
-            if (product.Error == WishListServiceOperationResults.CUSTOMER_NOT_FOUND ||
-                product.Error == WishListServiceOperationResults.PRODUCT_NOT_FOUND)
+            if (product.Error == WishListServiceOperationResults.CUSTOMER_NOT_FOUND)
             {
+                _logger.LogInformation($"Customer with {customerId} id not found. Message: {product.ErrorMessage}");
+                return Problem(product.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
+            }
+
+            if (product.Error == WishListServiceOperationResults.PRODUCT_NOT_FOUND)
+            {
+                _logger.LogInformation($"Product with {productId} id not found. Message: {product.ErrorMessage}");
                 return Problem(product.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
             }
 

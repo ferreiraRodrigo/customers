@@ -5,6 +5,7 @@ using Customers.Business.Services.Structs;
 using Customers.Presentation.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -17,10 +18,13 @@ namespace Customers.Presentation.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
+        private readonly ILogger<CustomerController> _logger;
 
-        public CustomerController(ICustomerService customerService)
+        public CustomerController(ICustomerService customerService,
+            ILogger<CustomerController> logger)
         {
             _customerService = customerService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -31,6 +35,7 @@ namespace Customers.Presentation.Controllers
 
             if (customer.Error == CustomerServiceOperationResults.CUSTOMER_EMAIL_ALREADY_EXISTS)
             {
+                _logger.LogInformation($"Customer creation failed for the customer: {customerDTO.Email}. Message: {customer.ErrorMessage}");
                 return Problem(customer.ErrorMessage, statusCode: (int)HttpStatusCode.Conflict);
             }
 
@@ -50,6 +55,7 @@ namespace Customers.Presentation.Controllers
 
             if (customer.Error == CustomerServiceOperationResults.CUSTOMER_NOT_FOUND)
             {
+                _logger.LogInformation($"Customer with {customerId} id not found. Message: {customer.ErrorMessage}");
                 return Problem(customer.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
             }
 
@@ -69,6 +75,7 @@ namespace Customers.Presentation.Controllers
 
             if (customer.Error == CustomerServiceOperationResults.CUSTOMER_NOT_FOUND)
             {
+                _logger.LogInformation($"Customer with {customerId} id not found. Message: {customer.ErrorMessage}");
                 return Problem(customer.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
             }
 
@@ -88,6 +95,7 @@ namespace Customers.Presentation.Controllers
 
             if (costumer.Error == CustomerServiceOperationResults.CUSTOMER_NOT_FOUND)
             {
+                _logger.LogInformation($"Customer with {customerId} id not found. Message: {costumer.ErrorMessage}");
                 return Problem(costumer.ErrorMessage, statusCode: (int)HttpStatusCode.NotFound);
             }
 

@@ -10,6 +10,7 @@
 
 # Custom
 data/
+logs/
 
 # User-specific files
 *.rsuser
