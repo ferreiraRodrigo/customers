@@ -49,7 +49,7 @@ Caso não possua o [Docker](https://www.docker.com/) instalado, será necessári
 
 Obs: Caso tenha problemas para executar a aplicação localmente, existe também uma versão dela rodando na AWS (temporariamente): http://ec2-50-16-171-87.compute-1.amazonaws.com:5001 (HTTP apenas).
 
-## 👦 **Criando um cliente e adicionando produtos na lista de desejos**
+## 👦 **Criando um cliente e adicionando produtos na lista de favoritos**
 
 Com a aplicação funcionando localmente em http://localhost:5001 (HTTP apenas), é possível agora executar suas operações. Para auxiliar o consumo da API, existe uma collection do [Postman](https://www.postman.com/) na diretório ./collections/Customers.postman_collection.json. Também é possível mudar o endereço do **baseUrl** nas variáveis de collection e apontar ela para a aplicação presente na AWS (http://ec2-50-16-171-87.compute-1.amazonaws.com:5001)
 
