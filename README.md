@@ -65,10 +65,10 @@ Como a API possui autenticação e autorização, premeiro precisamos criar noss
 ```
 
 Agora com o cliente criado, podemos fazer o login (autenticação). Para fazer isso precisamos passar nossas credênciais e os tipos de permissões que o token gerado terám, separadas por espaço. Por padrão, todo usuário criado tem acesso ao seguintes *scopes* (permissões):
- - read:customers (Operações de leitura de informações do cliente)
- - write: customers (Operações de escrita nas informações do cliente)
- - read:wishlist (Operações de leitura de informações na lista de favoritos do cliente)
- - write:wishlist (Operações de escrita nas informações da lista de favoritos do cliente)
+ - **read:customers** (Operações de leitura de informações do cliente)
+ - **write: customers** (Operações de escrita nas informações do cliente)
+ - **read:wishlist** (Operações de leitura de informações na lista de favoritos do cliente)
+ - **write:wishlist** (Operações de escrita nas informações da lista de favoritos do cliente)
 
 ### POST /authentication/login
 ```json
@@ -94,8 +94,10 @@ A documentação utilizando o [Swagger](https://swagger.io/) com todas as opera�
 ## Melhorias
 Na versão inicial dessa API diversas implementações foram feitas de forma simplificada e serão alteradas no futuro. Existem diversas delas já mapeadas para melhorias.
 
- - **Melhoria na autenticação e autorização.** Ele foi feita de forma simplificada, mas existe formas mais completas de realizar essas operações usando o IdentityServer4.
- - **Armazenamento de senha.** As senhas foram guardadas de forma simples no banco, sem nenhum tipo de criptografia.
- - **Estrutura do registro de serviços.** Muitos serviços são registrados na class *Startup.cs* e isso pode ser melhorado extraindo a configuração dos serviços para fora dela.
- - **Registro de logs.** Os logs estão sendo escrito no console e registro em um arquivo não estruturado. Isso pode ser melhorado utilizando o uso do *Serilog* para estruturar o log e até mesmo guardado de forma a utilizar toda stack do [Elasticsearch](https://www.elastic.co/pt/what-is/elasticsearch).
- - **Cache de resultados**. Hoje a aplicação não possui nenhum tipo de cache e isso pode ser melhorado com a implementação de ferramentas que permitem esse tipo de operação, como o Redis.
+| Melhorias        | Descrição           
+| :---------------- |:-------------
+| Melhoria na autenticação e autorização | Ele foi feita de forma simplificada, mas existe formas mais completas de realizar essas operações usando o IdentityServer4
+| Armazenamento de senha | As senhas foram guardadas de forma simples no banco, sem nenhum tipo de criptografia   
+| Estrutura do registro de serviços | Muitos serviços são registrados na class *Startup.cs* e isso pode ser melhorado extraindo a configuração dos serviços para fora dela 
+| Registro de logs | Os logs estão sendo escrito no console e registro em um arquivo não estruturado. Isso pode ser melhorado utilizando o uso do *Serilog* para estruturar o log e até mesmo guardado de forma a utilizar toda stack do [Elasticsearch](https://www.elastic.co/pt/what-is/elasticsearch)
+| Cache de resultados | Hoje a aplicação não possui nenhum tipo de cache e isso pode ser melhorado com a implementação de ferramentas que permitem esse tipo de operação, como o Redis
