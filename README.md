@@ -2,7 +2,7 @@
 
 Essa API permite a criação, login e gerenciamento de uma lista de produtos favoritos (wishlist). 
 
-## **Especificações**
+## 🔎 **Especificações**
 Algumas das especificações levadas em consideração durante o desenvolvimento:
  - Deve ser possível criar, atualizar, visualizar e remover **Clientes**
 baseUrl
@@ -25,7 +25,7 @@ simular essa renderização (foque no desenvolvimento da API).
  - O acesso à api deve ser aberto ao mundo, porém deve possuir autenticação
 e autorização.
 
-## **Principais Tecnologias**
+## 💻 **Principais Tecnologias**
  - ASP.NET 5 (C#)
      - **Entity Framework Core** (Mapeamento de banco de dados)
      - **ProblemDetails** (Padronização de erros)
@@ -37,7 +37,7 @@ e autorização.
  - PostgreSQL
  - Docker
 
-## **Começando a utilizar**
+## ⚙️ **Rodando a aplicação**
 
 Para utilizar esta aplicação de forma simplificada é necessário possuir o [Docker](https://www.docker.com/) instalado. Com o docker instalado, basta executar o arquivo de docker-compose.yaml que existe no repositório usando o comando:
 
@@ -49,7 +49,7 @@ Caso não possua o [Docker](https://www.docker.com/) instalado, será necessári
 
 Obs: Caso tenha problemas para executar a aplicação localmente, existe também uma versão dela rodando na AWS (temporariamente): http://ec2-50-16-171-87.compute-1.amazonaws.com:5001 (HTTP apenas).
 
-# **Criando um cliente e adicionando produtos na lista de desejos**
+## 👦 **Criando um cliente e adicionando produtos na lista de desejos**
 
 Com a aplicação funcionando localmente em http://localhost:5001 (HTTP apenas), é possível agora executar suas operações. Para auxiliar o consumo da API, existe uma collection do [Postman](https://www.postman.com/) na diretório ./collections/Customers.postman_collection.json. Também é possível mudar o endereço do **baseUrl** nas variáveis de collection e apontar ela para a aplicação presente na AWS (http://ec2-50-16-171-87.compute-1.amazonaws.com:5001)
 
