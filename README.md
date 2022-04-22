@@ -101,3 +101,4 @@ Na versão inicial dessa API diversas implementações foram feitas de forma sim
 | Estrutura do registro de serviços | Muitos serviços são registrados na class *Startup.cs* e isso pode ser melhorado extraindo a configuração dos serviços para fora dela 
 | Registro de logs | Os logs estão sendo escrito no console e registro em um arquivo não estruturado. Isso pode ser melhorado utilizando o uso do *Serilog* para estruturar o log e até mesmo guardado de forma a utilizar toda stack do [Elasticsearch](https://www.elastic.co/pt/what-is/elasticsearch)
 | Cache de resultados | Hoje a aplicação não possui nenhum tipo de cache e isso pode ser melhorado com a implementação de ferramentas que permitem esse tipo de operação, como o Redis
+| Mapeamento de Dtos e Modelos | Foram criadas apenas as DTOs necessários, enquanto parte das configurações ficaram nos modelos. Pode ser melhorado e implementado mapeamento mais completos em diversos cenários.
