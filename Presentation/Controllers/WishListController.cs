@@ -38,6 +38,11 @@ namespace Customers.Presentation.Controllers
         [HttpGet("products/{productId}")]
         public async Task<IActionResult> GetCustomerWishListProduct(Guid productId)
         {
+            if (!User.FindFirst(AuthenticationClaims.Scopes).Value.Contains(AuthenticationScopes.ReadWishList))
+            {
+                return Forbid();
+            }
+
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);
             var product = await _wishListService.GetProductFromCustomerWishListAsync(customerId, productId);
 
@@ -53,6 +58,11 @@ namespace Customers.Presentation.Controllers
         [HttpPost("products/{productId}")]
         public async Task<IActionResult> CreateProductOnCostumerWishList(Guid productId)
         {
+            if (!User.FindFirst(AuthenticationClaims.Scopes).Value.Contains(AuthenticationScopes.WriteWishList))
+            {
+                return Forbid();
+            }
+
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);
             var product = await _wishListService.AddProductToCustomerWishListAsync(customerId, productId);
 
@@ -73,6 +83,11 @@ namespace Customers.Presentation.Controllers
         [HttpDelete("products/{productId}")]
         public async Task<IActionResult> DeleteProductFromCostumerWishList(Guid productId)
         {
+            if (!User.FindFirst(AuthenticationClaims.Scopes).Value.Contains(AuthenticationScopes.WriteWishList))
+            {
+                return Forbid();
+            }
+
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);            
             var product = await _wishListService.DeleteProductFromCustomerWishListAsync(customerId, productId);
 

@@ -59,6 +59,11 @@ namespace Customers.Presentation.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateCustomer(CustomerUpdateDTO customerDTO)
         {
+            if (!User.FindFirst(AuthenticationClaims.Scopes).Value.Contains(AuthenticationScopes.WriteCustomer))
+            {
+                return Forbid();
+            }
+            
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);
             var customer = await _customerService.UpdateCustomerAsync(customerDTO, customerId);
 
@@ -73,6 +78,11 @@ namespace Customers.Presentation.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteCustomer()
         {
+            if (!User.FindFirst(AuthenticationClaims.Scopes).Value.Contains(AuthenticationScopes.WriteCustomer))
+            {
+                return Forbid();
+            }
+            
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);
             var costumer = await _customerService.DeleteCustomerAsync(customerId);
 
