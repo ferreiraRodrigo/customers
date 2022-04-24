@@ -6,16 +6,16 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Customers.csproj", "."]
-RUN dotnet restore "Customers.csproj"
+COPY ["Customers.Api.csproj", "."]
+RUN dotnet restore "Customers.Api.csproj"
 COPY . .
 WORKDIR "/src/"
-RUN dotnet build "Customers.csproj" -c Release -o /app/build
+RUN dotnet build "Customers.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Customers.csproj" -c Release -o /app/publish
+RUN dotnet publish "Customers.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Customers.dll"]
+ENTRYPOINT ["dotnet", "Customers.Api.dll"]
