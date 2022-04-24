@@ -10,7 +10,8 @@
 
 # Custom
 data/
-logs/
+Customers.Api/logs/
+Customers.Api/packages/
 
 # User-specific files
 *.rsuser
