@@ -28,6 +28,11 @@ namespace Customers.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomerWishList()
         {
+            if (!User.FindFirst(AuthenticationClaims.Scopes).Value.Contains(AuthenticationScopes.ReadWishList))
+            {
+                return Forbid();
+            }
+
             var customerId = Guid.Parse(User.FindFirst(AuthenticationClaims.CustomerId).Value);
             var wishlist = await _wishListService.GetCustomerWishListAsync(customerId);
 
