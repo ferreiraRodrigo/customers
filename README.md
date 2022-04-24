@@ -33,7 +33,7 @@ e autorização.
      - **Swashbuckle** (Geração de documentação)
      - **Identity Model** (Gerenciamento de tokens, que futuramente será substituido por uma solução mais completa, como o IdentityServer4)
      - **FluentValidation** (Melhoria nas validações realizadas nos contratos da API)
-     - **xUnit** (Testes unitários - em desenvolvimento)
+     - **xUnit / Moq** (Testes unitários)
  - PostgreSQL
  - Docker
 
@@ -102,3 +102,4 @@ Na versão inicial dessa API diversas implementações foram feitas de forma sim
 | Registro de logs | Os logs estão sendo escrito no console e registro em um arquivo não estruturado. Isso pode ser melhorado utilizando o uso do *Serilog* para estruturar o log e até mesmo guardado de forma a utilizar toda stack do [Elasticsearch](https://www.elastic.co/pt/what-is/elasticsearch)
 | Cache de resultados | Hoje a aplicação não possui nenhum tipo de cache e isso pode ser melhorado com a implementação de ferramentas que permitem esse tipo de operação, como o Redis
 | Mapeamento de Dtos e Modelos | Foram criadas apenas as DTOs necessários, enquanto parte das configurações ficaram nos modelos. Pode ser melhorado e implementado mapeamento mais completos em diversos cenários.
+| Cobertura de testes unitários | Inicialmente apenas as classes de serviço foram testes e a cobertura pode ser melhorada

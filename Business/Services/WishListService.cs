@@ -15,15 +15,15 @@ namespace Customers.Business.Services
         private readonly IProductRepository _productRepository;
         private readonly IProductAdapter _productAdapter;
 
-        public WishListService(IWishListRepository wishlistRepository, 
+        public WishListService(ICustomerRepository customerRepository, 
+            IWishListRepository wishlistRepository, 
             IProductRepository productRepository, 
-            IProductAdapter productAdapter,
-            ICustomerRepository customerRepository)
+            IProductAdapter productAdapter)
         {
+            _customerRepository = customerRepository;
             _wishlistRepository = wishlistRepository;
             _productRepository = productRepository;
             _productAdapter = productAdapter;
-            _customerRepository = customerRepository;
         }
         public async Task<OperationResult<WishList>> GetCustomerWishListAsync(Guid customerId)
         {

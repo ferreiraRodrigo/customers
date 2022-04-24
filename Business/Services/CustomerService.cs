@@ -2,9 +2,7 @@
 using Customers.Business.Repositories;
 using Customers.Business.Services.OperationResults;
 using Customers.Business.Services.Structs;
-using Customers.Configurations;
 using Customers.Presentation.Dtos;
-using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 

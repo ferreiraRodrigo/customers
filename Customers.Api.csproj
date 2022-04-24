@@ -8,23 +8,35 @@
     <Compile Remove="Business\Models\NewFolder1\**" />
     <Compile Remove="Business\Models\NewFolder2\**" />
     <Compile Remove="collections\**" />
+    <Compile Remove="Customers.UnitTest\**" />
+    <Compile Remove="database\**" />
     <Compile Remove="data\**" />
     <Compile Remove="logs\**" />
+    <Compile Remove="packages\**" />
     <Content Remove="Business\Models\NewFolder1\**" />
     <Content Remove="Business\Models\NewFolder2\**" />
     <Content Remove="collections\**" />
+    <Content Remove="Customers.UnitTest\**" />
+    <Content Remove="database\**" />
     <Content Remove="data\**" />
     <Content Remove="logs\**" />
+    <Content Remove="packages\**" />
     <EmbeddedResource Remove="Business\Models\NewFolder1\**" />
     <EmbeddedResource Remove="Business\Models\NewFolder2\**" />
     <EmbeddedResource Remove="collections\**" />
+    <EmbeddedResource Remove="Customers.UnitTest\**" />
+    <EmbeddedResource Remove="database\**" />
     <EmbeddedResource Remove="data\**" />
     <EmbeddedResource Remove="logs\**" />
+    <EmbeddedResource Remove="packages\**" />
     <None Remove="Business\Models\NewFolder1\**" />
     <None Remove="Business\Models\NewFolder2\**" />
     <None Remove="collections\**" />
+    <None Remove="Customers.UnitTest\**" />
+    <None Remove="database\**" />
     <None Remove="data\**" />
     <None Remove="logs\**" />
+    <None Remove="packages\**" />
   </ItemGroup>
 
   <ItemGroup>
