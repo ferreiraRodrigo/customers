@@ -9,8 +9,9 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 # Custom
-data/
-logs/
+Customers.Api/data/
+Customers.Api/logs/
+Customers.Api/packages/
 
 # User-specific files
 *.rsuser
